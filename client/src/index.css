@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
   height: 100vh;
 }
@@ -38,4 +39,13 @@ body {
 
 .dark .post-content a {
   color: red;
+}
+
+table {
+  position: relative;
+  z-index: 10; /* Make sure it's higher than the overlay */
+}
+
+div[data-testid="table-element"] .absolute {
+  z-index: 1; /* Lower the z-index of the white overlay */
 }
