@@ -246,7 +246,8 @@ export default function DashProfile() {
             <Button
               type='button'
               gradientDuoTone='purpleToPink'
-              className='w-full'
+              className="w-full text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600"
+
             >
               Create a post
             </Button>
@@ -283,14 +284,15 @@ export default function DashProfile() {
         size='md'
       >
         <Modal.Header />
-        <Modal.Body>
+        <Modal.Body className='pb-6'>
           <div className='text-center'>
             <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
             <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
               Are you sure you want to delete your account?
             </h3>
             <div className='flex justify-center gap-4'>
-              <Button color='failure' onClick={handleDeleteUser}>
+            <Button
+  className="bg-red-500 hover:bg-red-600 text-white dark:bg-red-600 dark:hover:bg-red-700" onClick={handleDeleteUser}>
                 Yes, I'm sure
               </Button>
               <Button color='gray' onClick={() => setShowModal(false)}>
