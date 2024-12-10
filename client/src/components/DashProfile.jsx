@@ -1,13 +1,6 @@
 import { Alert, Button, Modal, ModalBody, TextInput } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage';
-import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {
@@ -36,6 +29,7 @@ export default function DashProfile() {
   const [formData, setFormData] = useState({});
   const filePickerRef = useRef();
   const dispatch = useDispatch();
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -43,6 +37,7 @@ export default function DashProfile() {
       setImageFileUrl(URL.createObjectURL(file));
     }
   };
+
   useEffect(() => {
     if (imageFile) {
       uploadImage();
@@ -50,47 +45,32 @@ export default function DashProfile() {
   }, [imageFile]);
 
   const uploadImage = async () => {
-    // service firebase.storage {
-    //   match /b/{bucket}/o {
-    //     match /{allPaths=**} {
-    //       allow read;
-    //       allow write: if
-    //       request.resource.size < 2 * 1024 * 1024 &&
-    //       request.resource.contentType.matches('image/.*')
-    //     }
-    //   }
-    // }
     setImageFileUploading(true);
     setImageFileUploadError(null);
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + imageFile.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, imageFile);
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    const formData = new FormData();
+    formData.append('file', imageFile);
+    formData.append('upload_preset', 'imgupload');
+    try {
+      const res = await fetch('https://api.cloudinary.com/v1_1/dav8rfii0/image/upload', {  // Replace with your Cloudinary cloud name
+        method: 'POST',
+        body: formData,
+      });
 
-        setImageFileUploadProgress(progress.toFixed(0));
-      },
-      (error) => {
-        setImageFileUploadError(
-          'Could not upload image (File must be less than 2MB)'
-        );
-        setImageFileUploadProgress(null);
-        setImageFile(null);
-        setImageFileUrl(null);
+      const data = await res.json();
+      if (!res.ok) {
+        setImageFileUploadError('Could not upload image');
         setImageFileUploading(false);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImageFileUrl(downloadURL);
-          setFormData({ ...formData, profilePicture: downloadURL });
-          setImageFileUploading(false);
-        });
+        return;
       }
-    );
+
+      const cloudinaryUrl = data.secure_url;  // Cloudinary URL
+      setImageFileUrl(cloudinaryUrl);
+      setFormData({ ...formData, profilePicture: cloudinaryUrl });
+      setImageFileUploading(false);
+    } catch (error) {
+      setImageFileUploadError('Could not upload image');
+      setImageFileUploading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -131,6 +111,7 @@ export default function DashProfile() {
       setUpdateUserError(error.message);
     }
   };
+
   const handleDeleteUser = async () => {
     setShowModal(false);
     try {
@@ -164,6 +145,7 @@ export default function DashProfile() {
       console.log(error.message);
     }
   };
+
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
       <h1 className='my-7 text-center font-semibold text-3xl'>Profile</h1>
@@ -193,9 +175,7 @@ export default function DashProfile() {
                   left: 0,
                 },
                 path: {
-                  stroke: `rgba(62, 152, 199, ${
-                    imageFileUploadProgress / 100
-                  })`,
+                  stroke: `rgba(62, 152, 199, ${imageFileUploadProgress / 100})`,
                 },
               }}
             />
@@ -204,9 +184,7 @@ export default function DashProfile() {
             src={imageFileUrl || currentUser.profilePicture}
             alt='user'
             className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
-              imageFileUploadProgress &&
-              imageFileUploadProgress < 100 &&
-              'opacity-60'
+              imageFileUploadProgress && imageFileUploadProgress < 100 && 'opacity-60'
             }`}
           />
         </div>
@@ -247,7 +225,6 @@ export default function DashProfile() {
               type='button'
               gradientDuoTone='purpleToPink'
               className="w-full text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-purple-600 hover:via-pink-600 hover:to-red-600"
-
             >
               Create a post
             </Button>
@@ -291,12 +268,14 @@ export default function DashProfile() {
               Are you sure you want to delete your account?
             </h3>
             <div className='flex justify-center gap-4'>
-            <Button
-  className="bg-red-500 hover:bg-red-600 text-white dark:bg-red-600 dark:hover:bg-red-700" onClick={handleDeleteUser}>
+              <Button onClick={handleDeleteUser} color='failure'>
                 Yes, I'm sure
               </Button>
-              <Button color='gray' onClick={() => setShowModal(false)}>
-                No, cancel
+              <Button
+                onClick={() => setShowModal(false)}
+                color='gray'
+              >
+                No, Cancel
               </Button>
             </div>
           </div>
