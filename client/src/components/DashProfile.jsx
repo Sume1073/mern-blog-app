@@ -268,7 +268,8 @@ export default function DashProfile() {
               Are you sure you want to delete your account?
             </h3>
             <div className='flex justify-center gap-4'>
-              <Button onClick={handleDeleteUser} color='failure'>
+            <Button
+  className="bg-red-500 hover:bg-red-600 text-white dark:bg-red-600 dark:hover:bg-red-700"  onClick={handleDeleteUser}>
                 Yes, I'm sure
               </Button>
               <Button

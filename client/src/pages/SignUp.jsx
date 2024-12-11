@@ -52,8 +52,7 @@ export default function SignUp() {
             Blog
           </Link>
           <p className='text-sm mt-5'>
-            This is a demo project. You can sign up with your email and password
-            or with Google.
+          Explore the posts, leave your thoughts, and connect with the community. Sign up or log in with your email or Google to get started!
           </p>
         </div>
         {/* right */}
