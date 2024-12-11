@@ -1,18 +1,12 @@
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage';
-import { app } from '../firebase';
 import { useEffect, useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 export default function UpdatePost() {
   const [file, setFile] = useState(null);
@@ -23,11 +17,11 @@ export default function UpdatePost() {
   const { postId } = useParams();
 
   const navigate = useNavigate();
-    const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    try {
-      const fetchPost = async () => {
+    const fetchPost = async () => {
+      try {
         const res = await fetch(`/api/post/getposts?postId=${postId}`);
         const data = await res.json();
         if (!res.ok) {
@@ -35,54 +29,58 @@ export default function UpdatePost() {
           setPublishError(data.message);
           return;
         }
-        if (res.ok) {
-          setPublishError(null);
-          setFormData(data.posts[0]);
-        }
-      };
+        setPublishError(null);
+        setFormData(data.posts[0]);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-      fetchPost();
-    } catch (error) {
-      console.log(error.message);
-    }
+    fetchPost();
   }, [postId]);
 
-  const handleUpdloadImage = async () => {
+  const handleUploadImage = async () => {
     try {
       if (!file) {
         setImageUploadError('Please select an image');
         return;
       }
       setImageUploadError(null);
-      const storage = getStorage(app);
-      const fileName = new Date().getTime() + '-' + file.name;
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+      uploadFormData.append('upload_preset', 'imgupload'); // Replace with your Cloudinary preset
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: (progressEvent) => {
+          const progress = (progressEvent.loaded / progressEvent.total) * 100;
           setImageUploadProgress(progress.toFixed(0));
         },
-        (error) => {
-          setImageUploadError('Image upload failed');
-          setImageUploadProgress(null);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageUploadProgress(null);
-            setImageUploadError(null);
-            setFormData({ ...formData, image: downloadURL });
-          });
-        }
+      };
+
+      const response = await axios.post(
+        'https://api.cloudinary.com/v1_1/dav8rfii0/image/upload', // Replace with your Cloudinary URL
+        uploadFormData,
+        config
       );
+
+      const imageUrl = response.data.secure_url;
+      setImageUploadProgress(null);
+      setImageUploadError(null);
+      setFormData((prevData) => ({
+        ...prevData,
+        image: imageUrl,
+      }));
     } catch (error) {
       setImageUploadError('Image upload failed');
       setImageUploadProgress(null);
-      console.log(error);
+      console.error(error);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -98,15 +96,13 @@ export default function UpdatePost() {
         setPublishError(data.message);
         return;
       }
-
-      if (res.ok) {
-        setPublishError(null);
-        navigate(`/post/${data.slug}`);
-      }
+      setPublishError(null);
+      navigate(`/post/${data.slug}`);
     } catch (error) {
       setPublishError('Something went wrong');
     }
   };
+
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-center text-3xl my-7 font-semibold'>Update post</h1>
@@ -146,7 +142,7 @@ export default function UpdatePost() {
             gradientDuoTone='purpleToBlue'
             size='sm'
             outline
-            onClick={handleUpdloadImage}
+            onClick={handleUploadImage}
             disabled={imageUploadProgress}
           >
             {imageUploadProgress ? (
