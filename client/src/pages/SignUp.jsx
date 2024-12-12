@@ -110,7 +110,7 @@ export default function SignUp() {
             </Link>
           </div>
           {errorMessage && (
-            <Alert className='mt-5' color='failure'>
+             <Alert className="mt-5 bg-red-100 text-red-600 dark:bg-red-100 dark:text-red-800">
               {errorMessage}
             </Alert>
           )}

@@ -240,7 +240,7 @@ export default function DashProfile() {
         </span>
       </div>
       {updateUserSuccess && (
-        <Alert color='success' className='mt-5'>
+        <Alert className="mt-5 bg-green-100 text-green-600 dark:bg-green-100 dark:text-green-800">
           {updateUserSuccess}
         </Alert>
       )}
