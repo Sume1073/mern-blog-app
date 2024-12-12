@@ -185,7 +185,7 @@ export default function Header() {
         : 'text-gray-800 dark:text-gray-300'
     } hover:text-blue-600 dark:hover:text-blue-400 mx-4`}
   >
-    <Link to='/projects'>Projects</Link>
+    <Link to='/projects'>Contact</Link>
   </Navbar.Link>
 </Navbar.Collapse>
 
