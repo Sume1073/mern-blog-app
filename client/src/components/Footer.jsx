@@ -1,6 +1,6 @@
 import { Footer } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-import { BsInstagram, BsTwitter, BsGithub, BsDribbble, BsLinkedin } from 'react-icons/bs';
+import { BsInstagram, BsTwitter, BsGithub, BsDribbble, BsLinkedin, BsDiscord } from 'react-icons/bs';
 
 export default function FooterCom() {
   return (
@@ -25,25 +25,25 @@ export default function FooterCom() {
             {/* About Section */}
             <div className='p-2'>
               <Footer.Title
-                title='About'
+                title='Overview'
                 className='mb-4 font-semibold text-teal-500 dark:text-teal-500 transition-colors duration-200 hover:text-teal-700'
               />
               <Footer.LinkGroup col>
                 <Footer.Link
-                  href='https://www.100jsprojects.com'
+                  href="/about"
                   target='_blank'
                   rel='noopener noreferrer'
                   className='mb-2 hover:text-teal-500'
                 >
-                  100 JS Projects
+                  Sumedha's Blog
                 </Footer.Link>
                 <Footer.Link
-                  href='/about'
+                  href='/projects'
                   target='_blank'
                   rel='noopener noreferrer'
                   className='mb-4 hover:text-teal-500'
                 >
-                  Sumedha's Blog
+                  Contact Me
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
@@ -63,7 +63,7 @@ export default function FooterCom() {
                 >
                   Github
                 </Footer.Link>
-                <Footer.Link href='#' className='mb-4 hover:text-teal-500'>
+                <Footer.Link href='https://discord.com/invite/XnB4D2t3v3' className='mb-4 hover:text-teal-500'>
                   Discord
                 </Footer.Link>
               </Footer.LinkGroup>
@@ -76,10 +76,10 @@ export default function FooterCom() {
                 className='mb-4 font-semibold text-teal-500 dark:text-teal-500 transition-colors duration-200 hover:text-teal-700'
               />
               <Footer.LinkGroup col>
-                <Footer.Link href='#' className='mb-2 hover:text-teal-500'>
+                <Footer.Link href='https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/intl/en/policies/privacy/' className='mb-2 hover:text-teal-500'>
                   Privacy Policy
                 </Footer.Link>
-                <Footer.Link href='#' className='mb-4 hover:text-teal-500'>
+                <Footer.Link href='https://policies.google.com/terms' className='mb-4 hover:text-teal-500'>
                   Terms &amp; Conditions
                 </Footer.Link>
               </Footer.LinkGroup>
@@ -103,10 +103,10 @@ export default function FooterCom() {
           {/* Right: Social Icons */}
           <div className='flex gap-6'>
             <Footer.Icon href='https://www.linkedin.com/in/sumedha-chakrabarty-964810202' icon={BsLinkedin} />
-            <Footer.Icon href='#' icon={BsInstagram} />
-            <Footer.Icon href='#' icon={BsTwitter} />
+            <Footer.Icon href='https://www.instagram.com/_s.i.l.v.e.r__l.i.n.i.n.g_/?locale=zh_CN&hl=ar&e=0e3e3dc7-4a03-465e-8a48-670a3180d223&g=5' icon={BsInstagram} />
+            <Footer.Icon href='https://twitter.com/sumedhachakrab6' icon={BsTwitter} />
             <Footer.Icon href='https://github.com/Sume1073' icon={BsGithub} />
-            <Footer.Icon href='#' icon={BsDribbble} />
+            <Footer.Icon href='https://discord.com/invite/XnB4D2t3v3' icon={BsDiscord} />
           </div>
         </div>
       </div>
