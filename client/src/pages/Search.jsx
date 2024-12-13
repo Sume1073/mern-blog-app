@@ -134,6 +134,16 @@ export default function Search() {
               <option value='reactjs'>React.js</option>
               <option value='nextjs'>Next.js</option>
               <option value='javascript'>JavaScript</option>
+              <option value="ai">Artificial Intelligence</option>
+<option value="cloudcomputing">Cloud Computing</option>
+<option value="webdevelopment">Web Development</option>
+<option value="datascience">Data Science</option>
+<option value="cybersecurity">Cybersecurity</option>
+<option value="programming">Programming</option>
+<option value="machinelearning">Machine Learning</option>
+<option value="devops">DevOps</option>
+<option value="blockchain">Blockchain</option>
+<option value="softwareengineering">Software Engineering</option>
             </Select>
           </div>
           <Button type='submit' outline gradientDuoTone='purpleToPink'>

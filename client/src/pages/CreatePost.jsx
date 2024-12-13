@@ -127,8 +127,19 @@ export default function CreatePost() {
           >
             <option value="uncategorized">Select a category</option>
             <option value="javascript">JavaScript</option>
-            <option value="reactjs">React.js</option>
-            <option value="nextjs">Next.js</option>
+<option value="reactjs">React.js</option>
+<option value="nextjs">Next.js</option>
+<option value="ai">Artificial Intelligence</option>
+<option value="cloudcomputing">Cloud Computing</option>
+<option value="webdevelopment">Web Development</option>
+<option value="datascience">Data Science</option>
+<option value="cybersecurity">Cybersecurity</option>
+<option value="programming">Programming</option>
+<option value="machinelearning">Machine Learning</option>
+<option value="devops">DevOps</option>
+<option value="blockchain">Blockchain</option>
+<option value="softwareengineering">Software Engineering</option>
+            
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
