@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 
 const images = [
- '/images/cs1.png',
- '/images/cs3.jpg',
- '/images/cs4.png',
- '/images/cs5.jpg',
-  
+  '/images/cs1.png',
+  '/images/cs3.jpg',
+  '/images/cs4.png',
+  '/images/cs5.jpg',
 ];
 
 const testimonials = [
@@ -47,27 +46,26 @@ export default function About() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12">
       <div className="max-w-3xl mx-auto p-6 text-center">
         {/* Intro Section */}
-        <h1 className="text-4xl font-bold  text-teal-600 dark:text-purple-400 my-7">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-600 dark:text-purple-400 my-4 sm:my-6">
           About Sumedha's Blog
         </h1>
-        <div className="text-md text-gray-600 dark:text-gray-300 flex flex-col gap-6">
-  <p>
-    Welcome to <strong>Sumedha's Blog</strong>, a space where technology and creativity come together! Explore a variety of <strong>weekly articles and tutorials</strong> on topics such as web development, software engineering, and programming. Dive into an engaging community of learners and share your thoughts!
-  </p>
-  <p>
-    <strong>Created by Sumedha Chakrabarty</strong>, this blog features <strong>projects</strong> and <strong>tutorials</strong> that are crafted with a passion for coding and innovation. Whether you're a beginner or an experienced developer, there's something here for you to explore.
-  </p>
-  <p>
-    The blog is built using the <strong>MERN (MongoDB, Express.js, React.js, Node.js)</strong> stack, with additional features such as <strong>JWT for authentication</strong> and <strong>Redux Toolkit for state management</strong>.
-  </p>
-</div>
-
+        <div className="text-sm sm:text-md text-gray-600 dark:text-gray-300 flex flex-col gap-4 sm:gap-6">
+          <p>
+            Welcome to <strong>Sumedha's Blog</strong>, a space where technology and creativity come together! Explore a variety of <strong>weekly articles and tutorials</strong> on topics such as web development, software engineering, and programming. Dive into an engaging community of learners and share your thoughts!
+          </p>
+          <p>
+            <strong>Created by Sumedha Chakrabarty</strong>, this blog features <strong>projects</strong> and <strong>tutorials</strong> that are crafted with a passion for coding and innovation. Whether you're a beginner or an experienced developer, there's something here for you to explore.
+          </p>
+          <p>
+            The blog is built using the <strong>MERN (MongoDB, Express.js, React.js, Node.js)</strong> stack, with additional features such as <strong>JWT for authentication</strong> and <strong>Redux Toolkit for state management</strong>.
+          </p>
+        </div>
 
         {/* Image Slider */}
-        <div className="my-8 relative">
+        <div className="my-6 relative">
           <img
             src={images[currentImageIndex]}
             alt="Blog Highlights"
@@ -87,15 +85,13 @@ export default function About() {
         </div>
 
         {/* New Line Added After Image Slider */}
-<p className="text-lg text-gray-600 dark:text-gray-300 my-6">
-  Join me on this journey to explore the endless possibilities of technology and development through insightful articles and hands-on tutorials!
-</p>
+        <p className="text-sm sm:text-lg text-gray-600 dark:text-gray-300 my-4 sm:my-6">
+          Join me on this journey to explore the endless possibilities of technology and development through insightful articles and hands-on tutorials!
+        </p>
 
         {/* Testimonials Slider */}
-        <div className="my-10 relative">
-        <h2
-  className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 relative inline-block after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:bg-teal-600 dark:after:bg-purple-400 after:rounded-lg"
->
+        <div className="my-6 sm:my-10 relative">
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-white mb-4 relative inline-block after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:bg-teal-600 dark:after:bg-purple-400 after:rounded-lg">
             What People Are Saying
           </h2>
           <div className="flex justify-center items-center relative">
@@ -118,10 +114,10 @@ export default function About() {
                 {testimonials.map((testimonial, index) => (
                   <div key={index} className="flex-none w-full px-4">
                     <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md text-center">
-                      <p className="text-lg font-medium text-gray-700 dark:text-gray-200">
+                      <p className="text-sm sm:text-lg font-medium text-gray-700 dark:text-gray-200">
                         "{testimonial.text}"
                       </p>
-                      <span className="block mt-2 text-sm text-gray-500 dark:text-gray-400">
+                      <span className="block mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                         – {testimonial.author}
                       </span>
                     </div>
